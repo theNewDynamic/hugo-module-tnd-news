@@ -1,0 +1,5 @@
+{{ with $event := partialCached "tnd-news/private/ParseNews" . . }}
+  {{ with .date }}
+  <time datetime="{{ .raw }}">{{ .date }}</time>
+  {{ end }}
+{{ end }}

@@ -1,0 +1,25 @@
+
+{{ $s := newScratch }}
+{{ $s.Set "data" dict }}
+
+{{ $url := "" }}
+{{ $publisher := "" }}
+{{ with .Params.link_to_original }}
+  {{ $url = . }}
+  {{ $publisher = replaceRE "^https?://([^/]+).*" "$1" . | safeHTMLAttr }}
+  {{ with $.Params.where_published }}
+    {{ $publisher = . }}
+  {{ end }}
+{{ else }}
+  {{ with .Params.where_published }}
+  {{ $publisher = . }}
+  {{ end }}
+{{ end }}
+{{ with $url }}
+  {{ $s.SetInMap "data" "url" . }}
+{{ end }}
+{{ with $publisher }}
+  {{ $s.SetInMap "data" "publisher" . }}
+{{ end }}
+
+{{ return $s.Get "data" }}

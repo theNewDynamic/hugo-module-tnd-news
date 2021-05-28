@@ -1,0 +1,47 @@
+{{/*
+  ParseEvent
+  Structure Data for any given Page
+
+  @author @regisphilibert
+
+  @context Page
+
+  @access private
+
+  @returns Map
+    String (.name | .title)
+    Map (.start)
+      Date (.raw)
+      String (.rendered)
+      String (.date)
+      String (.time)
+    Map (.end)
+      Same structure as .start
+  @uses
+     - tnd-news/private/GetDateTimeFormats
+
+  @example - Go Template
+    {{ with partialCached "ParseEvent" context context }}
+      {{ something = . }}
+    {{ end }}
+*/}}
+{{ $s := newScratch }}
+{{ with .Title }}
+  {{ $s.SetInMap "data" "title" . }}
+  {{ $s.SetInMap "data" "name" . }}
+{{ end }}
+
+{{ $formats := partialCached "tnd-news/private/GetDateTimeFormats" "GetDateTimeFormats" }}
+
+{{ with .RelPermalink }}
+  {{ $s.SetInMap "data" "URL" . }}
+{{ end }}
+{{ with partialCached "tnd-news/private/GetOriginal" . . }}
+  {{ $s.SetInMap "data" "original" . }}
+{{ end }}
+{{ with .Date }}
+  {{ $date := dict "raw" . "rendered" (. | dateFormat $formats.datetime) "date" (. | dateFormat $formats.date) "time" (. | dateFormat $formats.time) "datetime" (. | dateFormat $formats.datetime) }}
+  {{ $s.SetInMap "data" "date" $date }}
+{{ end }}
+
+{{ return $s.Get "data" }}

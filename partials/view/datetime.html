@@ -1,0 +1,3 @@
+{{ with $event := partialCached "tnd-news/private/ParseNews" . . }}
+<time class="text-sm block color-inherit font-sans tracked" datetime="{{ .raw }}">{{ .datetime }}</time>
+{{ end }}

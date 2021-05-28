@@ -1,10 +1,4 @@
-This is a template repo. To start.
-
-search `{moduleName}` through the project and replace it with the module identifier (ex: `socials` for `hugo-module-tnd-socials`)
-
-# {moduleName} Hugo Module
-
-(intro)
+# TND News Hugo Module
 
 ## Requirements
 
@@ -27,33 +21,26 @@ Configure your project's module to import this module:
 # config.yaml
 module:
   imports:
-  - path: github.com/theNewDynamic/hugo-module-tnd-{moduleName}
+  - path: github.com/theNewDynamic/hugo-module-tnd-news
 ```
-
-## Usage
-
-### Some Partial/Feature
-
-#### Examples
 
 ### Settings
 
-Settings are added to the project's parameter under the `tnd_{moduleName}` map as shown below.
+Settings are added to the project's parameter under the `tnd_news` map as shown below. (Entered are defaults)
 
 ```yaml
 # config.yaml
 params:
-  tnd_{moduleName}:
-    [...]
+  tnd_news:
+    date_formats:
+      datetime: January 2, 2006 at 3:04 pm
+      date: 'January 2, 2006'
+      time: '3:04 pm'
 ```
 
-#### Configure Key 1
+#### date_formats
 
-#### Configure Key 2
-
-#### Defaults
-
-ld copy/paste the above to your settings and append with new extensions.
+Date formats are used to format dates throughout the view files.
 
 ## theNewDynamic
 

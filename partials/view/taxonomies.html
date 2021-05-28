@@ -1,0 +1,17 @@
+{{ range partialCached "tnd-news/GetTaxonomies" . $ }}
+  <h3 class="mb-2">
+    {{ .label }}
+  </h3>
+  
+  {{ with .terms }}
+  <ul class="list-reset">
+    {{ range .ByTitle }}
+      <li class="inline md:block pr-3">
+        <a href="{{ .Page.RelPermalink }}" class="no-underline text-grey-darker dim{{if eq $ .Page }} active{{end}}">
+          {{ .Page.Title | humanize }}
+        </a>
+      </li>
+    {{ end }}
+  </ul>
+  {{ end }}
+{{ end }}
